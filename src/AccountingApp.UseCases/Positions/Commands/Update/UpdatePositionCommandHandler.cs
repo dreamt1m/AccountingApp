@@ -1,4 +1,5 @@
 ﻿using AccountingApp.Infrastructure.Data;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace AccountingApp.UseCases.Positions.Commands.Update;
@@ -21,6 +22,14 @@ public class UpdatePositionCommandHandler : ICommandHandler<UpdatePositionComman
             return Result.NotFound();
         }
 
+        position.UpdateName(request.Name);
+        position.UpdateRatePerHour(request.RatePerHour);
+        position.UpdateOvertimeMultiplier(request.OvertimeMultiplier);
+        position.UpdateWorkingHoursPerMonth(request.WorkingHoursPerMonth);
+        position.UpdateFormOfRemuneration(request.FormOfRemuneration);
 
+        await _context.SaveChangesAsync(cancellationToken);
+
+        return Result.Success(position.Adapt<PositionDto>());
     }
 }

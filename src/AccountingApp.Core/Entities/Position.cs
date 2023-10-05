@@ -4,29 +4,18 @@ namespace AccountingApp.Core.Entities;
 
 public class Position : EntityBase
 {
-    private Position() { }
+    private Position()
+    {
+    }
 
     public Position(string name, double ratePerHour, double overtimeMultiplier, ushort workingHoursPerMonth,
         FormOfRemuneration formOfRemuneration)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentNullException(nameof(name), "Name can not be empty.");
-
-        if (ratePerHour <= 0)
-            throw new ArgumentOutOfRangeException(nameof(ratePerHour), ratePerHour, $"Rate per hour can't be zero or negative. Actual value is {ratePerHour}.");
-
-        if (overtimeMultiplier < 1)
-            throw new ArgumentOutOfRangeException(nameof(overtimeMultiplier), overtimeMultiplier, $"Overtime multiplier must be more than 1 or equal. Actual value is {overtimeMultiplier}");
-
-        if (Enum.IsDefined(formOfRemuneration) && formOfRemuneration is FormOfRemuneration.Unspecified)
-            throw new ArgumentException("Remuneration for position must be set to valid value.",
-                nameof(formOfRemuneration));
-
-        Name = name;
-        RatePerHour = ratePerHour;
-        OvertimeMultiplier = overtimeMultiplier;
-        WorkingHoursPerMonth = workingHoursPerMonth;
-        FormOfRemuneration = formOfRemuneration;
+        UpdateName(name);
+        UpdateRatePerHour(ratePerHour);
+        UpdateOvertimeMultiplier(overtimeMultiplier);
+        UpdateWorkingHoursPerMonth(workingHoursPerMonth);
+        UpdateFormOfRemuneration(formOfRemuneration);
     }
 
     public static Position CreateFixedPosition(string name, double ratePerHour, double overtimeMultiplier,
@@ -47,6 +36,55 @@ public class Position : EntityBase
     public ushort WorkingHoursPerMonth { get; private set; }
 
     public FormOfRemuneration FormOfRemuneration { get; private set; }
+
+    public void UpdateName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentNullException(nameof(name), "Name can not be empty.");
+
+        Name = name;
+    }
+
+    public void UpdateRatePerHour(double ratePerHour)
+    {
+        if (ratePerHour <= 0)
+            throw new ArgumentOutOfRangeException(nameof(ratePerHour), ratePerHour,
+                $"Rate per hour can't be zero or negative. Actual value is {ratePerHour}.");
+
+        RatePerHour = ratePerHour;
+    }
+
+    public void UpdateOvertimeMultiplier(double overtimeMultiplier)
+    {
+        if (overtimeMultiplier < 1)
+            throw new ArgumentOutOfRangeException(nameof(overtimeMultiplier), overtimeMultiplier,
+                $"Overtime multiplier must be more than 1 or equal. Actual value is {overtimeMultiplier}");
+
+        OvertimeMultiplier = overtimeMultiplier;
+    }
+
+    public void UpdateWorkingHoursPerMonth(ushort workingHoursPerMonth)
+    {
+        WorkingHoursPerMonth = workingHoursPerMonth;
+    }
+
+    public void UpdateFormOfRemuneration(FormOfRemuneration formOfRemuneration)
+    {
+        if (Enum.IsDefined(formOfRemuneration) && formOfRemuneration is FormOfRemuneration.Unspecified)
+            throw new ArgumentException("Remuneration for position must be set to valid value.",
+                nameof(formOfRemuneration));
+
+        FormOfRemuneration = formOfRemuneration;
+    }
+
+    public void UpdateFormOfRemuneration(string formOfRemuneration)
+    {
+        if (!Enum.TryParse<FormOfRemuneration>(formOfRemuneration, true, out var result))
+            throw new ArgumentException("Remuneration for position must be set to valid value.",
+                nameof(formOfRemuneration));
+
+        UpdateFormOfRemuneration(result);
+    }
 
     public double CalculateSalary(int workedHours)
     {
