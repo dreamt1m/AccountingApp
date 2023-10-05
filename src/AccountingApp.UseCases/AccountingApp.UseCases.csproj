@@ -8,14 +8,17 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.Result" Version="7.1.0" />
+    <PackageReference Include="Autofac" Version="7.1.0" />
     <PackageReference Include="MediatR" Version="12.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Bonuses\" />
     <Folder Include="Employees\Queries\" />
+    <Folder Include="Positions\Commands\Update\" />
+    <Folder Include="Positions\Queries\List\" />
+    <Folder Include="Positions\Queries\Get\" />
     <Folder Include="Reports\" />
-    <Folder Include="Positions\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,16 +10,16 @@ public class Position : EntityBase
         FormOfRemuneration formOfRemuneration)
     {
         if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentNullException(nameof(name));
+            throw new ArgumentNullException(nameof(name), "Name can not be empty.");
 
         if (ratePerHour <= 0)
-            throw new ArgumentOutOfRangeException(nameof(ratePerHour), ratePerHour, "Invalid position rate per hour.");
+            throw new ArgumentOutOfRangeException(nameof(ratePerHour), ratePerHour, $"Rate per hour can't be zero or negative. Actual value is {ratePerHour}.");
 
         if (overtimeMultiplier < 1)
-            throw new ArgumentOutOfRangeException(nameof(overtimeMultiplier), overtimeMultiplier, "Invalid position overtime multiplier.");
+            throw new ArgumentOutOfRangeException(nameof(overtimeMultiplier), overtimeMultiplier, $"Overtime multiplier must be more than 1 or equal. Actual value is {overtimeMultiplier}");
 
-        if (formOfRemuneration is FormOfRemuneration.Unspecified)
-            throw new ArgumentException("Need to select form of remuneration for position.",
+        if (Enum.IsDefined(formOfRemuneration) && formOfRemuneration is FormOfRemuneration.Unspecified)
+            throw new ArgumentException("Remuneration for position must be set to valid value.",
                 nameof(formOfRemuneration));
 
         Name = name;
@@ -54,6 +54,7 @@ public class Position : EntityBase
         {
             FormOfRemuneration.Fixed => GetFixedSalary(),
             FormOfRemuneration.Hourly => GetHourlySalary(workedHours, RatePerHour),
+            _ => throw new InvalidOperationException("Form of remuneration is corrupted")
         };
 
         return salaryBeforeTaxes;

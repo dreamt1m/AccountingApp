@@ -8,6 +8,15 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+    <PackageReference Include="FastEndpoints" Version="5.18.0" />
+    <PackageReference Include="FastEndpoints.Swagger" Version="5.18.0" />
+    <PackageReference Include="FastEndpoints.Swagger.Swashbuckle" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AccountingApp.Infrastructure\AccountingApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\AccountingApp.UseCases\AccountingApp.UseCases.csproj" />
   </ItemGroup>
 
 </Project>
