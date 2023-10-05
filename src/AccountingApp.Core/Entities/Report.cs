@@ -1,12 +1,24 @@
-﻿using AccountingApp.Core.Common;
+﻿using AccountingApp.BuildingBlocks.Models;
 
 namespace AccountingApp.Core.Entities;
 
-public class Report : BaseEntity
+public class Report : EntityBase
 {
-    public Employee Employee { get; set; }
+    private Report() { }
 
-    public DateOnly Date { get; set; }
+    public Report(Employee employee, DateOnly date, ushort hoursWorked)
+    {
+        if (hoursWorked > 24)
+            throw new ArgumentOutOfRangeException(nameof(hoursWorked), hoursWorked, "Invalid report hours amount.");
 
-    public ushort HoursWorked { get; set; }
+        Date = date;
+        HoursWorked = hoursWorked;
+        Employee = employee ?? throw new ArgumentNullException(nameof(employee));
+    }
+
+    public Employee Employee { get; private set; }
+
+    public DateOnly Date { get; private set; }
+
+    public ushort HoursWorked { get; private set; }
 }

@@ -1,18 +1,45 @@
-﻿using AccountingApp.Core.Common;
+﻿using AccountingApp.BuildingBlocks.Models;
 
 namespace AccountingApp.Core.Entities;
 
-public class Bonus : BaseEntity
+public class Bonus : EntityBase
 {
-    public string Title { get; set; }
+    private Bonus() {}
 
-    public DateOnly Date { get; set; }
+    public Bonus(string title, DateOnly date, double value, BonusType bonusType, Employee employee)
+    {
+        if (string.IsNullOrEmpty(title))
+            throw new ArgumentNullException(nameof(title), "Invalid bonus title");
 
-    public double Value { get; set; }
+        if (bonusType is BonusType.Unspecified)
+            throw new ArgumentException("Need to select bonus type.",
+                nameof(bonusType));
 
-    public BonusType BonusType { get; set; }
+        if (value <= 0)
+            throw new ArgumentOutOfRangeException(nameof(value), value, "Invalid bonus value.");
 
-    public Employee Employee { get; set; }
+        Title = title;
+        Date = date;
+        Value = value;
+        BonusType = bonusType;
+        Employee = employee ?? throw new ArgumentNullException(nameof(employee));
+    }
+
+    public static Bonus CreateFixedBonus(string title, DateOnly date, double value, Employee employee) =>
+        new(title, date, value, BonusType.FixedPayment, employee);
+
+    public static Bonus CreatePercentageOfSalaryBonus(string title, DateOnly date, double value, Employee employee) =>
+        new(title, date, value, BonusType.PercentageOfSalary, employee);
+
+    public string Title { get; private set; }
+
+    public DateOnly Date { get; private set; }
+
+    public double Value { get; private set; }
+
+    public BonusType BonusType { get; private set; }
+
+    public Employee Employee { get; private set; }
 
     public double CalculateBonus(double salary)
     {

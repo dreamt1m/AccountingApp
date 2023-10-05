@@ -1,16 +1,28 @@
-﻿using AccountingApp.Core.Common;
+﻿using System.ComponentModel.DataAnnotations;
+using AccountingApp.BuildingBlocks.Models;
 
 namespace AccountingApp.Core.Entities
 {
-    public class Employee : BaseEntity
+    public class Employee : EntityBase
     {
-        public string Name { get; set; }
+        private Employee() { }
 
-        public Position Position { get; set; }
+        public Employee(string name, Position position)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException(nameof(name));
 
-        public IList<Bonus> Bonuses { get; set; }
+            Name = name;
+            Position = position ?? throw new ArgumentNullException(nameof(position));
+        }
 
-        public IList<Report> Reports { get; set; }
+        public string Name { get; private set; }
+
+        public Position Position { get; private set; } 
+
+        public IEnumerable<Bonus> Bonuses { get; private set; } = new List<Bonus>();
+
+        public IEnumerable<Report> Reports { get; private set; } = new List<Report>();
 
         public double GetSalary(DateOnly date)
         {

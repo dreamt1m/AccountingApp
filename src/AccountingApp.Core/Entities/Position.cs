@@ -1,20 +1,52 @@
-﻿using AccountingApp.Core.Common;
+﻿using AccountingApp.BuildingBlocks.Models;
 
 namespace AccountingApp.Core.Entities;
 
-public class Position : BaseEntity
+public class Position : EntityBase
 {
-    public string Name { get; set; }
+    private Position() { }
 
-    public double RatePerHour { get; set; }
+    public Position(string name, double ratePerHour, double overtimeMultiplier, ushort workingHoursPerMonth,
+        FormOfRemuneration formOfRemuneration)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentNullException(nameof(name));
 
-    public double OvertimeMultiplier { get; set; }
+        if (ratePerHour <= 0)
+            throw new ArgumentOutOfRangeException(nameof(ratePerHour), ratePerHour, "Invalid position rate per hour.");
+
+        if (overtimeMultiplier < 1)
+            throw new ArgumentOutOfRangeException(nameof(overtimeMultiplier), overtimeMultiplier, "Invalid position overtime multiplier.");
+
+        if (formOfRemuneration is FormOfRemuneration.Unspecified)
+            throw new ArgumentException("Need to select form of remuneration for position.",
+                nameof(formOfRemuneration));
+
+        Name = name;
+        RatePerHour = ratePerHour;
+        OvertimeMultiplier = overtimeMultiplier;
+        WorkingHoursPerMonth = workingHoursPerMonth;
+        FormOfRemuneration = formOfRemuneration;
+    }
+
+    public static Position CreateFixedPosition(string name, double ratePerHour, double overtimeMultiplier,
+        ushort workingHoursPerMonth)
+        => new(name, ratePerHour, overtimeMultiplier, workingHoursPerMonth, FormOfRemuneration.Fixed);
+
+    public static Position CreateHourlyPosition(string name, double ratePerHour)
+        => new(name, ratePerHour, 1, 0, FormOfRemuneration.Hourly);
+
+    public string Name { get; private set; }
+
+    public double RatePerHour { get; private set; }
+
+    public double OvertimeMultiplier { get; private set; }
 
     public double OvertimeRatePerHour => RatePerHour * OvertimeMultiplier;
 
-    public ushort WorkingHoursPerMonth { get; set; }
+    public ushort WorkingHoursPerMonth { get; private set; }
 
-    public FormOfRemuneration FormOfRemuneration { get; set; }
+    public FormOfRemuneration FormOfRemuneration { get; private set; }
 
     public double CalculateSalary(int workedHours)
     {
