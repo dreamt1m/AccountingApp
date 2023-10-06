@@ -8,7 +8,7 @@ public class UpdateEmployeeValidator : Validator<UpdateEmployeeRequest>
 {
     public UpdateEmployeeValidator()
     {
-        RuleFor(e => e.Id)
+        RuleFor(e => e.EmployeeId)
             .NotEmpty();
 
         RuleFor(e => e.Name)

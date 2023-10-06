@@ -23,7 +23,7 @@ public class Update : Endpoint<UpdatePositionRequest, UpdatePositionResponse>
         {
             s.ExampleRequest = new UpdatePositionRequest
             {
-                Id = Guid.Empty,
+                PositionId = Guid.Empty,
                 Name = "Driver",
                 RatePerHour = 10,
                 OvertimeMultiplier = 2,
@@ -38,7 +38,7 @@ public class Update : Endpoint<UpdatePositionRequest, UpdatePositionResponse>
         CancellationToken cancellationToken)
     {
         var command = new UpdatePositionCommand(
-            request.Id,
+            request.PositionId,
             request.Name!,
             request.RatePerHour!.Value,
             request.OvertimeMultiplier!.Value,

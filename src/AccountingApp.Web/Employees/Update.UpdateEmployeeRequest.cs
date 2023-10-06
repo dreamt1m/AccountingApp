@@ -4,9 +4,9 @@ namespace AccountingApp.Web.Employees;
 
 public class UpdateEmployeeRequest
 {
-    public const string Route = "/Employees/{Id:Guid}";
+    public const string Route = "/Employees/{EmployeeId:Guid}";
 
-    [Required] public Guid Id { get; set; }
+    [Required] public Guid EmployeeId { get; set; }
 
     [Required] public string? Name { get; set; }
 

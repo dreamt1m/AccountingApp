@@ -7,7 +7,7 @@ public class UpdatePositionValidator : Validator<UpdatePositionRequest>
 {
     public UpdatePositionValidator()
     {
-        RuleFor(e => e.Id)
+        RuleFor(e => e.PositionId)
             .NotEmpty();
     }
 }

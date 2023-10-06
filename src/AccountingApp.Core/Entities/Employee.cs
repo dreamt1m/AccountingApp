@@ -16,9 +16,9 @@ namespace AccountingApp.Core.Entities
 
         public Position Position { get; private set; } 
 
-        public IEnumerable<Bonus> Bonuses { get; private set; } = new List<Bonus>();
+        public List<Bonus> Bonuses { get; private set; } = new();
 
-        public IEnumerable<Report> Reports { get; private set; } = new List<Report>();
+        public List<Report> Reports { get; private set; } = new();
 
         public void UpdateName(string name)
         {
@@ -31,6 +31,16 @@ namespace AccountingApp.Core.Entities
         public void UpdatePosition(Position position)
         {
             Position = position ?? throw new ArgumentNullException(nameof(position));
+        }
+
+        public void AddReport(Report report)
+        {
+            Reports.Add(report);
+        }
+
+        public void RemoveReport(Report report)
+        {
+            Reports.Remove(report); // TODO: check
         }
 
         public double GetSalary(DateOnly date)

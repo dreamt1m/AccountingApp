@@ -4,9 +4,9 @@ namespace AccountingApp.Web.Positions;
 
 public class UpdatePositionRequest
 {
-    public const string Route = "/Positions/{Id:Guid}";
+    public const string Route = "/Positions/{PositionId:Guid}";
 
-    [Required] public Guid Id { get; set; }
+    [Required] public Guid PositionId { get; set; }
 
     [Required] public string? Name { get; set; }
 

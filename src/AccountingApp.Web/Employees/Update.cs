@@ -19,7 +19,7 @@ public class Update : Endpoint<UpdateEmployeeRequest, UpdateEmployeeResponse>
         {
             s.ExampleRequest = new UpdateEmployeeRequest
             {
-                Id = Guid.Empty,
+                EmployeeId = Guid.Empty,
                 Name = "Tom",
                 PositionId = Guid.Empty,
             };
@@ -28,7 +28,7 @@ public class Update : Endpoint<UpdateEmployeeRequest, UpdateEmployeeResponse>
 
     public override async Task HandleAsync(UpdateEmployeeRequest request, CancellationToken cancellationToken)
     {
-        var command = new UpdateEmployeeCommand(request.Id, request.Name!, request.PositionId);
+        var command = new UpdateEmployeeCommand(request.EmployeeId, request.Name!, request.PositionId);
 
         var result = await _mediator.Send(command, cancellationToken);
 
