@@ -20,10 +20,10 @@ public class List : EndpointWithoutRequest<ListPositionsResponse>
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(CancellationToken ct)
+    public override async Task HandleAsync(CancellationToken cancellationToken)
     {
         var query = new ListPositionsQuery();
-        var result = await _mediator.Send(query, ct);
+        var result = await _mediator.Send(query, cancellationToken);
 
         if (result.IsSuccess)
         {

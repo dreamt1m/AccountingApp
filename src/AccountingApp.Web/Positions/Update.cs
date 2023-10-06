@@ -53,7 +53,6 @@ public class Update : Endpoint<UpdatePositionRequest, UpdatePositionResponse>
             return;
         }
 
-
         if (result.IsSuccess)
         {
             var responseDto = result.Value.Adapt<PositionRecord>();

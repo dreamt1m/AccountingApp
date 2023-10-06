@@ -1,9 +1,7 @@
-using AccountingApp.Infrastructure;
 using AccountingApp.Infrastructure.Data;
 using AccountingApp.UseCases;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
 using Serilog;

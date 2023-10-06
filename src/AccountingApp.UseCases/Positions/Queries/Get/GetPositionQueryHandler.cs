@@ -1,5 +1,4 @@
 ﻿using AccountingApp.Infrastructure.Data;
-using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace AccountingApp.UseCases.Positions.Queries.Get;
@@ -22,8 +21,6 @@ public class GetPositionQueryHandler : IQueryHandler<GetPositionQuery, Result<Po
             return Result.NotFound();
         }
 
-        var response = position.Adapt<PositionDto>();
-
-        return Result.Success(response);
+        return Result.Success(position.Adapt<PositionDto>());
     }
 }

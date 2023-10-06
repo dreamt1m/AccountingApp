@@ -1,6 +1,5 @@
 ﻿using AccountingApp.Core.Entities;
 using AccountingApp.Infrastructure.Data;
-using Ardalis.Result;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +20,7 @@ public class CreateEmployeeCommandHandler : ICommandHandler<CreateEmployeeComman
 
         if (position == null)
         {
-            return Result.NotFound("Invalid position");
+            return Result.Error("Invalid position.");
         }
 
         var newEmployee = new Employee(request.Name, position);
@@ -30,6 +29,6 @@ public class CreateEmployeeCommandHandler : ICommandHandler<CreateEmployeeComman
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return newEmployee.Id; // TODO: Check
+        return newEmployee.Id;
     }
 }

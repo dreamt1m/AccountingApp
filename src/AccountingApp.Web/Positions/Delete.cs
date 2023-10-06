@@ -27,20 +27,20 @@ namespace AccountingApp.Web.Positions
             });
         }
 
-        public override async Task HandleAsync(DeletePositionRequest req, CancellationToken ct)
+        public override async Task HandleAsync(DeletePositionRequest request, CancellationToken cancellationToken)
         {
-            var command = new DeletePositionCommand(req.PositionId);
+            var command = new DeletePositionCommand(request.PositionId);
 
-            var result = await _mediator.Send(command, ct);
+            var result = await _mediator.Send(command, cancellationToken);
 
             if (result.Status is ResultStatus.NotFound)
             {
-                await SendNotFoundAsync(ct);
+                await SendNotFoundAsync(cancellationToken);
             }
 
             if (result.IsSuccess)
             {
-                await SendOkAsync(ct);
+                await SendOkAsync(cancellationToken);
             }
         }
     }

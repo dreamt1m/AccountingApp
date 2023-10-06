@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using AccountingApp.BuildingBlocks.Models;
+﻿using AccountingApp.BuildingBlocks.Models;
 
 namespace AccountingApp.Core.Entities
 {
@@ -9,11 +8,8 @@ namespace AccountingApp.Core.Entities
 
         public Employee(string name, Position position)
         {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException(nameof(name));
-
-            Name = name;
-            Position = position ?? throw new ArgumentNullException(nameof(position));
+            UpdateName(name);
+            UpdatePosition(position);
         }
 
         public string Name { get; private set; }
@@ -23,6 +19,19 @@ namespace AccountingApp.Core.Entities
         public IEnumerable<Bonus> Bonuses { get; private set; } = new List<Bonus>();
 
         public IEnumerable<Report> Reports { get; private set; } = new List<Report>();
+
+        public void UpdateName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                throw new ArgumentNullException(nameof(name));
+
+            Name = name;
+        }
+
+        public void UpdatePosition(Position position)
+        {
+            Position = position ?? throw new ArgumentNullException(nameof(position));
+        }
 
         public double GetSalary(DateOnly date)
         {

@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Bonuses\" />
-    <Folder Include="Employees\Queries\" />
+    <Folder Include="Employees\Queries\Get\" />
     <Folder Include="Positions\Queries\List\" />
     <Folder Include="Reports\" />
   </ItemGroup>

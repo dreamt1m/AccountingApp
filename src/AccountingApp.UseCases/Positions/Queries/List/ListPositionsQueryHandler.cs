@@ -1,5 +1,4 @@
 ﻿using AccountingApp.Infrastructure.Data;
-using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace AccountingApp.UseCases.Positions.Queries.List;
