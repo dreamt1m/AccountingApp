@@ -43,6 +43,16 @@ namespace AccountingApp.Core.Entities
             Reports.Remove(report); // TODO: check
         }
 
+        public void AddBonus(Bonus bonus)
+        {
+            Bonuses.Add(bonus);
+        }
+
+        public void RemoveBonus(Bonus bonus)
+        {
+            Bonuses.Remove(bonus);
+        }
+
         public double GetSalary(DateOnly date)
         {
             var workedHours = GetWorkedHours(date);
