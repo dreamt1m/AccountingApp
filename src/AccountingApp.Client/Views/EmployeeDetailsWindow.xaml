@@ -1,0 +1,90 @@
+﻿<Window x:Class="AccountingApp.Client.Views.EmployeeDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AccountingApp.Client.Views"
+        mc:Ignorable="d"
+        Loaded="EmployeeDetailsWindow_OnLoaded"
+        Title="EmployeeDetailsWindow" Height="760" Width="1350">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+            <StackPanel Margin="10" Height="200">
+                <TextBlock Text="Bonuses" Margin="5"/>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Title:" Width="50"/>
+                    <TextBox Width="100" Name="BonusName"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Date:" Width="50"/>
+                    <DatePicker Width="100" Name="BonusDate"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Value:" Width="50"/>
+                    <TextBox Width="100" Name="BonusValue"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Type:" Width="50"/>
+                    <ComboBox Width="100" Name="BonusType">
+                        <ComboBoxItem>FixedPayment</ComboBoxItem>
+                        <ComboBoxItem>PercentageOfSalary</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <Button Click="ButtonBase_OnClick" Content="Create"/>
+            </StackPanel>
+            <DataGrid Name="BonusesGrid" AutoGenerateColumns="False" IsReadOnly="True" Width="500" Height="200">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Width="90" />
+                    <DataGridTextColumn Header="Title" Binding="{Binding Path=Title}" Width="80" />
+                    <DataGridTextColumn Header="Date" Binding="{Binding Path=Date}" Width="120" />
+                    <DataGridTextColumn Header="Value" Binding="{Binding Path=Value}" Width="120" />
+                    <DataGridTextColumn Header="BonusType" Binding="{Binding Path=BonusType}" Width="120" />
+                    <DataGridTemplateColumn Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Click="ButtonBase_OnClick2" CommandParameter="{Binding}">Delete</Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Grid.Row="1">
+            <StackPanel Margin="10" Height="200">
+                <TextBlock Text="Bonuses" Margin="5"/>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Date:" Width="50"/>
+                    <DatePicker Width="100" Name="ReportDate"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Hours:" Width="50"/>
+                    <TextBox Width="100" Name="ReportHours"/>
+                </StackPanel>
+                <Button Click="ButtonBase_OnClick3" Content="Create"/>
+            </StackPanel>
+            <StackPanel Margin="10" Height="200">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Date:" Width="50"/>
+                    <DatePicker Width="100" Name="ReportsDatePicker" SelectedDateChanged="ReportsDatePicker_OnSelectedDateChanged"/>
+                </StackPanel>
+                <DataGrid Name="ReportsGrid" AutoGenerateColumns="False" IsReadOnly="True" Width="500" Height="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Date}" Width="120" />
+                        <DataGridTextColumn Header="Hours worked" Binding="{Binding Path=HoursWorked}" Width="120" />
+                        <DataGridTemplateColumn Width="120">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="ButtonBase_OnClick4" CommandParameter="{Binding}">Delete</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

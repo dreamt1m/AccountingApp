@@ -1,0 +1,54 @@
+﻿<Window x:Class="AccountingApp.Client.Views.EmployeesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AccountingApp.Client.Views"
+        mc:Ignorable="d"
+        Title="EmployeesWindow" Height="461" Width="1245">
+    <Grid Height="434" VerticalAlignment="Bottom">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Content="Refresh" Click="Button_Click" Width="100" Margin="5"/>
+            <Button Content="Add" Width="100" Click="Button_Click_1" Margin="5"/>
+            <Button Content="Reports" Width="100" Click="Button_Click_5" Margin="5"/>
+            <Button Content="Chart" Width="100" Click="ButtonBase_OnClick" Margin="5"/>
+            <Button Content="Positions" Width="100" Click="ButtonBase_OnClick9" Margin="5"/>
+        </StackPanel>
+        <DataGrid ItemsSource="{Binding Employees}" AutoGenerateColumns="False" Grid.Row="1" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Width="90" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" Width="80" />
+                <DataGridTextColumn Header="Position" Binding="{Binding Path=Position.Name}" Width="120" />
+                <DataGridTextColumn Header="Rate per hour" Binding="{Binding Path=Position.RatePerHour}" Width="80" />
+                <DataGridTextColumn Header="Overtime multiplier" Binding="{Binding Path=Position.OvertimeMultiplier}" Width="120" />
+                <DataGridTextColumn Header="Working hours per month" Binding="{Binding Path=Position.WorkingHoursPerMonth}" Width="120" />
+                <DataGridTextColumn Header="Form of remuneration" Binding="{Binding Path=Position.FormOfRemuneration}" Width="120" />
+                <DataGridTemplateColumn Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="ButtonBase_OnClick1" CommandParameter="{Binding}">Delete</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="ButtonBase_OnClick2" CommandParameter="{Binding}">Update</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="ButtonBase_OnClick3" CommandParameter="{Binding}">Details</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

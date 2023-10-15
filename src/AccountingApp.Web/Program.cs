@@ -1,6 +1,7 @@
 using AccountingApp.Infrastructure.Data;
 using AccountingApp.UseCases;
 using Autofac;
+using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,8 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
     containerBuilder.RegisterModule(new AutofacUseCasesModule());
 });
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -38,6 +41,8 @@ else
     app.UseDefaultExceptionHandler();
     app.UseHsts();
 }
+
+app.UseCors(b => b.AllowAnyOrigin());
 
 app.UseFastEndpoints();
 app.UseSwaggerGen();

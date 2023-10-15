@@ -1,0 +1,23 @@
+﻿<Window x:Class="AccountingApp.Client.Views.ChartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AccountingApp.Client.Views"
+        xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=DotNetProjects.DataVisualization.Toolkit"
+        mc:Ignorable="d"
+        Title="ChartWindow" Height="840" Width="1322">
+    <Grid>
+        <StackPanel>
+            <DatePicker Name="DatePicker" SelectedDateChanged="DatePicker_OnSelectedDateChanged" />
+            <chartingToolkit:Chart Background="LightSteelBlue" Height="800">
+                <chartingToolkit:Chart.Series>
+                    <chartingToolkit:BarSeries Title="Salary per month" Name="SalaryChart"
+                                               IndependentValueBinding="{Binding Path=Date}"
+                                               DependentValueBinding="{Binding Path=Salary}">
+                    </chartingToolkit:BarSeries>
+                </chartingToolkit:Chart.Series>
+            </chartingToolkit:Chart>
+        </StackPanel>
+    </Grid>
+</Window>
