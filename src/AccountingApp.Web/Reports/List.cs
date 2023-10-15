@@ -1,6 +1,4 @@
-﻿using AccountingApp.UseCases.Employees.Commands.Delete;
-using AccountingApp.UseCases.Reports.Queries.List;
-using AccountingApp.Web.Employees;
+﻿using AccountingApp.UseCases.Reports.Queries.List;
 
 namespace AccountingApp.Web.Reports;
 

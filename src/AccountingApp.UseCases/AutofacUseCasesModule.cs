@@ -2,11 +2,10 @@
 using Autofac;
 using MediatR.Pipeline;
 using MediatR;
-using Module = Autofac.Module;
 
 namespace AccountingApp.UseCases;
 
-public class AutofacUseCasesModule : Module
+public class AutofacUseCasesModule : Autofac.Module
 {
     protected override void Load(ContainerBuilder builder)
     {
